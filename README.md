@@ -1,168 +1,329 @@
-# RAG Based LLM AI Chatbot 🤖
-RAG Based LLM AI Chatbot Built using Open Source Stack (Llama 3.2 Model, BGE Embeddings, and Qdrant running locally within a Docker Container)
+# RAG-Based LLM AI Chatbot 🤖
+![Rag based Chatbot](sct.png)
 
-![RAG Based LLM AI Chatbot](sct.png)
+A Retrieval-Augmented Generation (RAG) based AI chatbot that allows users to upload PDF documents and interact with them using natural language.
 
-**RAG Based LLM AI Chatbot** is a powerful Streamlit-based application designed to simplify document management. Upload your PDF documents, create embeddings for efficient retrieval, and interact with your documents through an intelligent chatbot interface. 🚀
+The application combines **Large Language Models, semantic search, vector databases, and document processing** to provide context-aware answers based on uploaded documents.
 
-## 🛠️ Features
+## 🚀 Features
 
-- **📂 Upload Documents**: Easily upload and preview your PDF documents within the app.
-- **🧠 Create Embeddings**: Generate embeddings for your documents to enable efficient search and retrieval.
-- **🤖 Chatbot Interface**: Interact with your documents using a smart chatbot that leverages the created embeddings.
-- **📧 Contact**: Get in touch with the developer or contribute to the project on GitHub.
-- **🌟 User-Friendly Interface**: Enjoy a sleek and intuitive UI with emojis and responsive design for enhanced user experience.
+- 📂 **PDF Document Upload**
+  - Upload PDF documents directly through the application.
+  - Process documents for question answering.
 
-## 🖥️ Tech Stack
+- 🧠 **Document Embeddings**
+  - Convert document content into vector embeddings.
+  - Use semantic similarity for document retrieval.
 
-The Document Buddy App leverages a combination of cutting-edge technologies to deliver a seamless and efficient user experience. Here's a breakdown of the technologies and tools used:
+- 🔎 **Semantic Search**
+  - Retrieve the most relevant sections of uploaded documents.
+  - Use Qdrant as the vector database for similarity search.
 
-- **[LangChain](https://langchain.readthedocs.io/)**: Utilized as the orchestration framework to manage the flow between different components, including embeddings creation, vector storage, and chatbot interactions.
-  
-- **[Unstructured](https://github.com/Unstructured-IO/unstructured)**: Employed for robust PDF processing, enabling the extraction and preprocessing of text from uploaded PDF documents.
-  
-- **[BGE Embeddings from HuggingFace](https://huggingface.co/BAAI/bge-small-en)**: Used to generate high-quality embeddings for the processed documents, facilitating effective semantic search and retrieval.
-  
-- **[Qdrant](https://qdrant.tech/)**: A vector database running locally via Docker, responsible for storing and managing the generated embeddings for fast and scalable retrieval.
-  
-- **[LLaMA 3.2 via Ollama](https://ollama.com/)**: Integrated as the local language model to power the chatbot, providing intelligent and context-aware responses based on the document embeddings.
-  
-- **[Streamlit](https://streamlit.io/)**: The core framework for building the interactive web application, offering an intuitive interface for users to upload documents, create embeddings, and interact with the chatbot.
+- 🤖 **AI Chatbot**
+  - Ask questions about uploaded documents using natural language.
+  - Generate context-aware responses using a locally running LLaMA model.
 
-## 📁 Directory Structure
+- 🔒 **Local AI Stack**
+  - Run the LLM and vector database locally.
+  - No external LLM API is required for generating responses.
 
-document_buddy_app/
+- 🖥️ **Streamlit Interface**
+  - Interactive web interface for uploading documents and chatting with them.
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| Python | Core application development |
+| Streamlit | Web application interface |
+| LangChain | RAG pipeline and LLM orchestration |
+| LLaMA 3.2 | Local Large Language Model |
+| Ollama | Local LLM execution |
+| BGE Embeddings | Document embedding generation |
+| Qdrant | Vector database |
+| Unstructured | PDF document processing |
+| Docker | Running Qdrant locally |
+
+---
+
+## 🏗️ How It Works
+
+The application follows a Retrieval-Augmented Generation pipeline:
+
+```text
+                PDF Document
+                     │
+                     ▼
+            Document Processing
+                     │
+                     ▼
+             Text Extraction
+                     │
+                     ▼
+              Text Chunking
+                     │
+                     ▼
+            BGE Embeddings
+                     │
+                     ▼
+              Qdrant Vector DB
+                     │
+                     │
+              User Question
+                     │
+                     ▼
+             Semantic Search
+                     │
+                     ▼
+          Relevant Document Chunks
+                     │
+                     ▼
+              LLaMA 3.2
+                     │
+                     ▼
+             Generated Answer
 ```
-│── logo.png
+
+The system retrieves relevant information from uploaded documents before sending the context to the LLM. This allows the chatbot to answer questions using the contents of the user's documents rather than relying only on the model's pretrained knowledge.
+
+---
+
+## 📁 Project Structure
+
+```text
+RAG-Based-LLM-Chatbot/
+│
+├── aliases/
+│   └── data.json
+│
+├── chatbot.py
 ├── new.py
 ├── vectors.py
-├── chatbot.py
 ├── requirements.txt
+├── README.md
+├── .gitignore
+├── raft_state.json
+├── sct.png
+├── Check PDF LLM Fine tuning.pdf
+└── temp.pdf
 ```
 
-## 🚀 Getting Started
+### Main Files
 
-Follow these instructions to set up and run the Document Buddy App on your local machine.
+**`new.py`**
+
+Main Streamlit application responsible for the user interface and application flow.
+
+**`vectors.py`**
+
+Handles document processing, chunking, embedding generation, and interaction with the Qdrant vector database.
+
+**`chatbot.py`**
+
+Handles the chatbot and RAG logic and communication with the local LLaMA model.
+
+**`requirements.txt`**
+
+Contains the Python dependencies required to run the project.
+
+---
+
+## ⚙️ Prerequisites
+
+Before running the project, make sure you have the following installed:
+
+- Python 3.10+
+- Docker
+- Ollama
+- Git
+
+You will also need the required LLaMA model available through Ollama.
+
+---
+
+## 🚀 Installation
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/GURPREETKAURJETHRA/RAG-Based-LLM-Chatbot.git
+git clone https://github.com/rekhchand-01/RAG-Based-LLM-Chatbot.git
 cd RAG-Based-LLM-Chatbot
 ```
 
-2. Create a Virtual Environment
+### 2. Create a Virtual Environment
 
-You can either use Python’s venv or Anaconda to create a virtual environment for managing dependencies.
-
-Option 1: Using venv
-
-On Windows:
+#### Windows
 
 ```bash
-python -m venv venv
-venv\Scripts\activate
+python -m venv .venv
+.venv\Scripts\activate
 ```
 
-On macOS and Linux:
+#### macOS / Linux
 
 ```bash
-python3 -m venv venv
-source venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
-Option 2: Using Anaconda
-
-Follow these steps to create a virtual environment using Anaconda:
-1.	Open the Anaconda Prompt.
-2.	Create a new environment:
-
-```bash
-conda create --name Chatbot python=3.10
-```
-
-(Replace Chatbot with your preferred environment name if desired).
-
-3.	Activate the newly created environment:
-
-```bash
-conda activate Chatbot
-```
-
-
-
-3. Install Dependencies
-
-Once the environment is set up (whether venv or Conda), install the required dependencies using requirements.txt:
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Run the App
+---
 
-Start the Streamlit app using the following command:
+## 🐳 Run Qdrant
+
+The project uses Qdrant as a local vector database.
+
+Start Qdrant using Docker:
+
+```bash
+docker run -p 6333:6333 qdrant/qdrant
+```
+
+Qdrant will then be available locally at:
+
+```text
+http://localhost:6333
+```
+
+---
+
+## 🦙 Setup Ollama
+
+Install Ollama and download the required LLaMA model:
+
+```bash
+ollama pull llama3.2
+```
+
+Make sure Ollama is running before starting the chatbot.
+
+You can verify the model using:
+
+```bash
+ollama list
+```
+
+---
+
+## ▶️ Run the Application
+
+Start the Streamlit application:
 
 ```bash
 streamlit run new.py
 ```
 
-Note: If your main application file is named differently, replace new.py with your actual file name (e.g., app.py).
+The application will be available at:
 
-This command will launch the app in your default web browser. If it doesn’t open automatically, navigate to the URL provided in the terminal (usually http://localhost:8501).
-
-
-### 🤝 Contributing
-
-Contributions are welcome! Whether it’s reporting a bug, suggesting a feature, or submitting a pull request, your input is highly appreciated. Follow these steps to contribute:
-
-1.	Fork the Repository: Click on the “Fork” button at the top-right corner of the repository page.
-2.	Clone Your Fork
-3.	Create a New Branch:
-
-```
-git checkout -b feature/YourFeatureName
+```text
+http://localhost:8501
 ```
 
-
-4.	Make Your Changes: Implement your feature or fix.
-5.	Commit Your Changes:
-
-```
-git commit -m "Add Your Feature Description"
-```
-
-
-6.	Push to Your Fork:
-
-```
-git push origin feature/YourFeatureName
-```
-
-
-7.	Create a Pull Request: Navigate to the original repository and create a pull request from your fork.
-
-
-### 🔗 Useful Links
-
-
-•	Streamlit Documentation: https://docs.streamlit.io/
-
-•	LangChain Documentation: https://langchain.readthedocs.io/
-
-•	Qdrant Documentation: https://qdrant.tech/documentation/
-
-•	ChatOllama Documentation: https://github.com/langchain-ai/langchain-llms#ollama
-
-Happy coding! 🚀✨
-
-## ©️ License 🪪 
-
-Distributed under the MIT License. See `LICENSE` for more information.
+Open the URL in your browser if Streamlit does not open it automatically.
 
 ---
 
-#### **If you like this LLM Project do drop ⭐ to this repo**
-#### Follow me on [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/gurpreetkaurjethra/) &nbsp; [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/GURPREETKAURJETHRA/)
+## 💬 Using the Chatbot
+
+1. Start the Qdrant Docker container.
+2. Start Ollama and make sure the LLaMA model is available.
+3. Run the Streamlit application.
+4. Upload a PDF document.
+5. Generate/process the document embeddings.
+6. Ask questions about the uploaded document.
+7. The RAG pipeline retrieves relevant document sections.
+8. The retrieved context is provided to the LLaMA model.
+9. The chatbot generates an answer based on the retrieved information.
 
 ---
+
+## 🔍 RAG Pipeline
+
+The project implements the following RAG workflow:
+
+### 1. Document Ingestion
+
+PDF files are uploaded through the Streamlit interface and processed using the document processing pipeline.
+
+### 2. Text Extraction and Chunking
+
+The extracted document text is divided into smaller chunks to make retrieval more effective.
+
+### 3. Embedding Generation
+
+Each chunk is converted into a numerical vector using the **BGE embedding model**.
+
+### 4. Vector Storage
+
+The generated embeddings are stored in **Qdrant**, allowing the system to perform efficient similarity searches.
+
+### 5. Retrieval
+
+When a user asks a question, the question is converted into an embedding and compared against the stored document vectors.
+
+### 6. Context Generation
+
+The most relevant document chunks are retrieved and provided as context to the LLaMA model.
+
+### 7. Response Generation
+
+LLaMA 3.2 generates the final response using the retrieved document context.
+
+---
+
+## 🧩 Key Concepts Demonstrated
+
+This project demonstrates practical implementation of:
+
+- Retrieval-Augmented Generation (RAG)
+- Large Language Models (LLMs)
+- Semantic Search
+- Vector Embeddings
+- Vector Databases
+- Document Question Answering
+- Local LLM Deployment
+- LangChain
+- Qdrant
+- Ollama
+- Docker
+- Streamlit
+- PDF Processing
+
+---
+
+## 🔮 Future Improvements
+
+Some possible improvements include:
+
+- Support for multiple document formats.
+- Conversation memory for multi-turn conversations.
+- Improved document chunking strategies.
+- Source citations for retrieved document sections.
+- Better document management and deletion.
+- Authentication and user-specific document collections.
+- Advanced RAG evaluation.
+- Modern React-based frontend.
+- Cloud deployment.
+
+---
+
+## 📌 Project Status
+
+The project is currently functional as a local RAG-based document chatbot using:
+
+**Streamlit + LangChain + BGE Embeddings + Qdrant + Ollama + LLaMA 3.2**
+
+Further improvements can focus on UI modernization, RAG quality, document management, and deployment.
+
+---
+
+## ⭐ About
+
+This project was built to explore the practical implementation of **Retrieval-Augmented Generation (RAG)** using an open-source AI stack and locally running infrastructure.
